@@ -3,18 +3,27 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^13.0.0",
-    "@testing-library/user-event": "^13.2.1",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
+    "@gsap/react": "^2.1.0",
     "@types/jest": "^27.0.1",
-    "@types/node": "^16.7.13",
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
+    "@types/node": "^20.11.27",
+    "@types/react": "^18.2.65",
+    "@types/react-dom": "^18.2.22",
+    "axios": "^1.6.7",
+    "css-loader": "^6.10.0",
+    "eslint": "^8.57.0",
+    "gsap": "^3.12.5",
+    "openai": "^4.29.0",
+    "prettier": "^3.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-geolocation": "^1.1.0",
+    "react-loading-skeleton": "^3.4.0",
+    "react-router-dom": "^6.22.3",
     "react-scripts": "5.0.1",
-    "typescript": "^4.4.2",
-    "web-vitals": "^2.1.0"
+    "style-loader": "^3.3.4",
+    "typescript": "^5.4.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -39,5 +48,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
+    "eslint-config-prettier": "^9.1.0",
+    "typescript-eslint": "^7.2.0"
   }
 }
