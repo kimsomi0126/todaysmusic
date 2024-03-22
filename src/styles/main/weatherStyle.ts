@@ -32,10 +32,16 @@ export const WeatherText = styled.div`
   }
   li {
     margin-bottom: 0.5rem;
-    font-weight: 300;
+    font-weight: 100;
+    &.date {
+      font-size: 1.5rem;
+    }
+    &.name {
+      font-weight: 500;
+    }
   }
   b {
-    font-weight: 500;
+    font-weight: 600;
   }
 `;
 

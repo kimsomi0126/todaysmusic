@@ -83,10 +83,23 @@ export const ModalWrap = styled.div`
   color: #222;
   text-align: center;
   z-index: 9;
+  button {
+    color: #fff;
+    border-radius: 5rem;
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+  }
 `;
 export const YtBtn = styled.button`
   position: relative;
+  background: #555;
 `;
 export const MelonBtn = styled.button`
   position: relative;
+  background: #fff;
+  border: 1px solid #ddd;
+  img {
+    height: 1rem;
+    vertical-align: 10%;
+  }
 `;

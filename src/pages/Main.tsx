@@ -35,8 +35,10 @@ const Main = () => {
   // 날씨정보
   const [weather, setWeather] = useState<Weather>(initWeather);
   // 음악 정보
-  // const [music, setMusic] = useState<Music[]>(initMusic);
   const [music, setMusic] = useRecoilState(atomMusicList);
+  // 로딩체크
+  const [loading, setLoding] = useState(false);
+  const [countdown, setCountdown] = useState(0);
   // 현재 좌표
   const location = useGeolocation();
   const coordinates = location.coordinates || { lat: 0, lng: 0 };
@@ -64,13 +66,25 @@ const Main = () => {
       getWeather({ lat, lng, successFn });
       gsap.to('.weather-icon', { x: 0, opacity: 1, duration: 1 });
     }
+    // 음악추천 시간제한
+    const timer = setInterval(() => {
+      setCountdown(prevCountdown => {
+        if (prevCountdown === 0) {
+          clearInterval(timer);
+        }
+        return prevCountdown - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
   }, [lat, lng, music]);
 
   // 추천받기 클릭
   const handleClickRecommend = () => {
     getAi({ keyword: weather.description, successFn: successAiFn });
+    setLoding(true);
+    setCountdown(20);
   };
-
   // 날씨정보 가져오기 성공
   const successFn = (res: any) => {
     // 날씨 아이콘 가져오기
@@ -96,6 +110,7 @@ const Main = () => {
   const successAiFn = async (res: any) => {
     const arr: Music[] = [];
     console.log('결과값', res);
+    setLoding(false);
 
     // 음악추천 가수 + 노래명으로 앨범커버 가져오기
     // 비동기 작업이 완료되면 실행
@@ -132,8 +147,8 @@ const Main = () => {
 
   return (
     <>
+      <Header />
       <MainWrap ref={container}>
-        <Header />
         {/* 날씨정보 */}
         <WeatherWrap>
           <WeatherBox weather={weather} lat={lat} />
@@ -143,24 +158,29 @@ const Main = () => {
           {lat === 0 ? (
             <MusicListSkeleton />
           ) : music.length === 1 ? (
-            <RecommendBtn onClick={handleClickRecommend}>
-              음악 추천 받기
-            </RecommendBtn>
+            <>
+              <RecommendBtn onClick={handleClickRecommend}>
+                음악 추천 받기
+              </RecommendBtn>
+              {loading ? <Loading /> : null}
+            </>
           ) : (
             <>
               <h4>
                 Music Recommend
-                <RefreshBtn onClick={handleClickRecommend}>
-                  다시 추천받기
-                </RefreshBtn>
+                {countdown > 0 ? (
+                  <p>{countdown}</p>
+                ) : (
+                  <RefreshBtn onClick={handleClickRecommend}>
+                    다시 추천받기
+                  </RefreshBtn>
+                )}
               </h4>
               <MusicList music={music} />
             </>
           )}
         </MusicWrap>
       </MainWrap>
-
-      {lat === 0 ? <Loading /> : null}
       <MusicVideo />
     </>
   );

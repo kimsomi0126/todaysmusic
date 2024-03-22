@@ -37,7 +37,7 @@ const MusicInfoModal = ({ item, handleClickClose }: Modal) => {
           window.open(`${item.link.melon}`);
         }}
       >
-        멜론
+        <img src="/images/logo_melon.png" alt="멜론 아이콘" />
       </MelonBtn>
       <br />
       <button
