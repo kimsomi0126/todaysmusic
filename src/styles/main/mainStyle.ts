@@ -20,3 +20,26 @@ export const RecommendBtn = styled.button`
   padding: 1rem;
   color: #fff;
 `;
+
+export const YtModalWrap = styled.div`
+  position: fixed;
+  right: 5%;
+  bottom: 5%;
+
+  iframe {
+    border: 0;
+  }
+`;
+
+export const BtnWrap = styled.div`
+  position: absolute;
+  right: 0;
+  top: -3rem;
+  color: #fff;
+  display: flex;
+  gap: 1rem;
+
+  button {
+    color: #fff;
+  }
+`;

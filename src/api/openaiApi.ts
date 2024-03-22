@@ -9,7 +9,7 @@ export const getAi = async ({ keyword, successFn }: OpenAiProps) => {
       {
         role: 'system',
         content:
-          '날씨에 어울리는 음악 최소 5곡, 최대 10곡을 [{album:"앨범명",artist:"가수이름", title:"음악이름"},{album:"앨범명", artist:"가수이름", title:"음악이름"}] 이 양식에 맞춰서 json으로 제출, 반드시 다른말 없이 json만 대답해야함',
+          '날씨에 어울리는 음악 5곡을 [{album:"앨범명",artist:"가수이름", title:"음악이름"},{album:"앨범명", artist:"가수이름", title:"음악이름"}] 이 양식에 맞춰서 json으로 제출, 반드시 다른말 없이 json만 대답해야함',
       },
       {
         role: 'user',

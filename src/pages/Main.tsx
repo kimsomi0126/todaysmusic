@@ -5,34 +5,21 @@ import Loading from '../components/Loading';
 import MusicList from '../components/MusicList';
 import { getTrackInfo } from '../api/musicApi';
 import { getAi } from '../api/openaiApi';
-import {
-  BgObject,
-  WeatherImg,
-  WeatherInfo,
-  WeatherText,
-  WeatherWrap,
-} from '../styles/main/weatherStyle';
+import { WeatherWrap } from '../styles/main/weatherStyle';
 import { Music } from '../types/musicTypes';
 import { Weather } from '../types/weatherTypes';
 import { useGSAP } from '@gsap/react';
 import { MainWrap, RecommendBtn } from '../styles/main/mainStyle';
 import gsap from 'gsap';
 import 'react-loading-skeleton/dist/skeleton.css';
-import WeatherSkeleton from '../components/skeleton/WeatherSkeleton';
 import MusicListSkeleton from '../components/skeleton/MusicListSkeleton';
-import { MusicWrap } from '../styles/main/musicListStyle';
-import { Link } from 'react-router-dom';
-import { HeaderInner, HeaderWrap } from '../styles/common/headerStyle';
+import { MusicWrap, RefreshBtn } from '../styles/main/musicListStyle';
+import WeatherBox from '../components/WeatherBox';
+import Header from '../components/common/Header';
+import MusicVideo from '../components/music/MusicVideo';
+import { useRecoilState } from 'recoil';
+import { atomMusicList } from '../atoms/atomMusicListState';
 
-const initMusic = [
-  {
-    album: '',
-    artist: '',
-    image: '',
-    title: '',
-    link: { youtube: '', melon: '' },
-  },
-];
 const initWeather = {
   description: '',
   name: '',
@@ -48,13 +35,13 @@ const Main = () => {
   // 날씨정보
   const [weather, setWeather] = useState<Weather>(initWeather);
   // 음악 정보
-  const [music, setMusic] = useState<Music[]>(initMusic);
+  // const [music, setMusic] = useState<Music[]>(initMusic);
+  const [music, setMusic] = useRecoilState(atomMusicList);
   // 현재 좌표
   const location = useGeolocation();
   const coordinates = location.coordinates || { lat: 0, lng: 0 };
   const lat = coordinates.lat;
   const lng = coordinates.lng;
-
   // GSAP 실행
   gsap.registerPlugin(useGSAP);
   const container: any = useRef();
@@ -79,8 +66,6 @@ const Main = () => {
     }
   }, [lat, lng, music]);
 
-  console.log('음악리스트', music);
-
   // 추천받기 클릭
   const handleClickRecommend = () => {
     getAi({ keyword: weather.description, successFn: successAiFn });
@@ -91,7 +76,7 @@ const Main = () => {
     // 날씨 아이콘 가져오기
     const weatherIcon = res.list[0].weather[0].icon;
     const date = res.list[0].dt_txt;
-    const weatherIconAdrs = `http://openweathermap.org/img/wn/${weatherIcon}@4x.png`;
+    const weatherIconAdrs = `https://openweathermap.org/img/wn/${weatherIcon}@4x.png`;
     // 소수점 버리기
     const temp = Math.round(res.list[0].main.temp);
     const temp_min = Math.round(res.list[0].main.temp_min);
@@ -143,48 +128,17 @@ const Main = () => {
     setMusic(arr);
   };
 
+  // console.log('음악리스트', music);
+
   return (
     <>
       <MainWrap ref={container}>
-        <HeaderWrap>
-          <HeaderInner>
-            <Link to="/">
-              <img src="/images/logo_w.svg" alt="" />
-            </Link>
-          </HeaderInner>
-        </HeaderWrap>
+        <Header />
+        {/* 날씨정보 */}
         <WeatherWrap>
-          {/* 현재 좌표 [{lat}/{lng}] */}
-          <WeatherInfo>
-            <BgObject className="obj01" />
-            <BgObject className="obj02" />
-            <BgObject className="obj03" />
-            <WeatherImg className="weather-icon">
-              <img src={weather.icon} alt={weather.description} />
-            </WeatherImg>
-            {lat === 0 ? (
-              <WeatherSkeleton />
-            ) : (
-              <WeatherText>
-                <ul>
-                  <li className="date">{weather.date.split(' ')[0]}</li>
-                  <li className="name">{weather.name}</li>
-                  <li className="temp">
-                    <h2>
-                      {weather.temp}
-                      <span>˚</span>
-                    </h2>
-                    <span>{weather.description}</span>
-                  </li>
-                  <li className="temp-desc">
-                    최저 <b>{weather.temp_min}</b> 도 | 최고{' '}
-                    <b>{weather.temp_max}</b> 도
-                  </li>
-                </ul>
-              </WeatherText>
-            )}
-          </WeatherInfo>
+          <WeatherBox weather={weather} lat={lat} />
         </WeatherWrap>
+        {/* 음악리스트 */}
         <MusicWrap>
           {lat === 0 ? (
             <MusicListSkeleton />
@@ -196,7 +150,9 @@ const Main = () => {
             <>
               <h4>
                 Music Recommend
-                <button onClick={handleClickRecommend}>다시 추천받기</button>
+                <RefreshBtn onClick={handleClickRecommend}>
+                  다시 추천받기
+                </RefreshBtn>
               </h4>
               <MusicList music={music} />
             </>
@@ -205,6 +161,7 @@ const Main = () => {
       </MainWrap>
 
       {lat === 0 ? <Loading /> : null}
+      <MusicVideo />
     </>
   );
 };

@@ -1951,6 +1951,30 @@
     "@svgr/plugin-svgo" "^5.5.0"
     loader-utils "^2.0.0"
 
+"@tanstack/query-core@5.28.6":
+  version "5.28.6"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.28.6.tgz#a3bdb108f9f8d4e2ba3163068dbe6ff55b905a81"
+  integrity sha512-hnhotV+DnQtvtR3jPvbQMPNMW4KEK0J4k7c609zJ8muiNknm+yoDyMHmxTWM5ZnlZpsz0zOxYFr+mzRJNHWJsA==
+
+"@tanstack/query-devtools@5.28.6":
+  version "5.28.6"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-devtools/-/query-devtools-5.28.6.tgz#da31268b79102e6fd8d6df64763ec9c02d84bd58"
+  integrity sha512-DXJGqbrsteWU9XehDf6s3k3QxwQqGUlNXpitsF1xbwkYBcDaAakiC6hjJSMfPBHOrbZCnWfAGCVf4vh2D75/xw==
+
+"@tanstack/react-query-devtools@^5.28.6":
+  version "5.28.6"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query-devtools/-/react-query-devtools-5.28.6.tgz#d85dae3541e4fe802c0df015c980309314378850"
+  integrity sha512-xSfskHlM2JkP7WpN89UqhJV2RbFxg8YnOMzQz+EEzWSsgxMI5Crce8HO9pcUAcJce8gSmw93RQwuKNdG3FbT6w==
+  dependencies:
+    "@tanstack/query-devtools" "5.28.6"
+
+"@tanstack/react-query@^5.28.6":
+  version "5.28.6"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.28.6.tgz#0d52b0a98a1d842debf9c65496e20a9981a23bc4"
+  integrity sha512-/DdYuDBSsA21Qbcder1R8Cr/3Nx0ZnA2lgtqKsLMvov8wL4+g0HBz/gWYZPlIsof7iyfQafyhg4wUVUsS3vWZw==
+  dependencies:
+    "@tanstack/query-core" "5.28.6"
+
 "@tootallnate/once@1":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-1.1.2.tgz#ccb91445360179a04e7fe6aff78c00ffc1eeaf82"
@@ -5163,6 +5187,11 @@ gzip-size@^6.0.0:
   dependencies:
     duplexer "^0.1.2"
 
+hamt_plus@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/hamt_plus/-/hamt_plus-1.0.2.tgz#e21c252968c7e33b20f6a1b094cd85787a265601"
+  integrity sha512-t2JXKaehnMb9paaYA7J0BX8QQAY8lwfQ9Gjf4pg/mk4krt+cmwmU652HOoWonf+7+EQV97ARPMhhVgU1ra2GhA==
+
 handle-thing@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/handle-thing/-/handle-thing-2.0.1.tgz#857f79ce359580c340d43081cc648970d0bb234e"
@@ -8158,6 +8187,18 @@ readdirp@~3.6.0:
   integrity sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==
   dependencies:
     picomatch "^2.2.1"
+
+recoil-persist@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/recoil-persist/-/recoil-persist-5.1.0.tgz#c4232fe04f2e4b6afcc815baff56f2521f6dcde1"
+  integrity sha512-sew4k3uBVJjRWKCSFuBw07Y1p1pBOb0UxLJPxn4G2bX/9xNj+r2xlqYy/BRfyofR/ANfqBU04MIvulppU4ZC0w==
+
+recoil@^0.7.7:
+  version "0.7.7"
+  resolved "https://registry.yarnpkg.com/recoil/-/recoil-0.7.7.tgz#c5f2c843224384c9c09e4a62c060fb4c1454dc8e"
+  integrity sha512-8Og5KPQW9LwC577Vc7Ug2P0vQshkv1y3zG3tSSkWMqkWSwHmE+by06L8JtnGocjW6gcCvfwB3YtrJG6/tWivNQ==
+  dependencies:
+    hamt_plus "1.0.2"
 
 recursive-readdir@^2.2.2:
   version "2.2.3"

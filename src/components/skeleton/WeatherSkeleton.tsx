@@ -6,7 +6,10 @@ import { LoadingWeather } from '../../styles/common/loading';
 const WeatherSkeleton = () => {
   return (
     <>
-      <SkeletonTheme baseColor="#3d3d3d" highlightColor="#444">
+      <SkeletonTheme
+        baseColor="rgba(24, 24, 24, 0.8)"
+        highlightColor="rgba(150, 150, 150, 0.1)"
+      >
         <LoadingWeather className="loading-weather">
           <Skeleton width="20rem" />
           <Skeleton width="10rem" />

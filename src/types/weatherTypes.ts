@@ -13,3 +13,8 @@ export type WeatherGetProps = {
   lng: number;
   successFn: any;
 };
+
+export type WeatherInfoProps = {
+  weather: Weather;
+  lat: number;
+};
