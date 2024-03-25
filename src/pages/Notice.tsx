@@ -1,13 +1,15 @@
 import React from 'react';
-import Header from '../components/common/Header';
-import { MainWrap } from '../styles/main/mainStyle';
+import BasicLayout from '../layouts/BasicLayout';
+import { PageTitle } from '../styles/common/basic';
 
 const Notice = () => {
   return (
-    <MainWrap>
-      <Header />
-      Notice
-    </MainWrap>
+    <BasicLayout>
+      <PageTitle>
+        <h4>Notice</h4>
+        <button>글쓰기</button>
+      </PageTitle>
+    </BasicLayout>
   );
 };
 

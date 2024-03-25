@@ -8,6 +8,7 @@ export type Music = {
 
 export type MusicProps = {
   music: any;
+  check?: boolean;
 };
 
 export type OpenAiProps = {
@@ -60,4 +61,10 @@ export type VideoType = {
       };
     },
   ];
+};
+
+export type MusicAddItem = {
+  uid: number;
+  musicid: string;
+  music: Music;
 };

@@ -6,7 +6,7 @@ import MusicList from '../components/MusicList';
 import { getTrackInfo } from '../api/musicApi';
 import { getAi } from '../api/openaiApi';
 import { WeatherWrap } from '../styles/main/weatherStyle';
-import { Music } from '../types/musicTypes';
+import { MusicAddItem } from '../types/musicTypes';
 import { Weather } from '../types/weatherTypes';
 import { useGSAP } from '@gsap/react';
 import { MainWrap, RecommendBtn } from '../styles/main/mainStyle';
@@ -15,10 +15,10 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import MusicListSkeleton from '../components/skeleton/MusicListSkeleton';
 import { MusicWrap, RefreshBtn } from '../styles/main/musicListStyle';
 import WeatherBox from '../components/WeatherBox';
-import Header from '../components/common/Header';
-import MusicVideo from '../components/music/MusicVideo';
 import { useRecoilState } from 'recoil';
 import { atomMusicList } from '../atoms/atomMusicListState';
+import BasicLayout from '../layouts/BasicLayout';
+import { useColletion } from '../hooks/useColletion';
 
 const initWeather = {
   description: '',
@@ -44,6 +44,7 @@ const Main = () => {
   const coordinates = location.coordinates || { lat: 0, lng: 0 };
   const lat = coordinates.lat;
   const lng = coordinates.lng;
+  const { documents } = useColletion('mylist');
   // GSAP 실행
   gsap.registerPlugin(useGSAP);
   const container: any = useRef();
@@ -66,19 +67,20 @@ const Main = () => {
       getWeather({ lat, lng, successFn });
       gsap.to('.weather-icon', { x: 0, opacity: 1, duration: 1 });
     }
-    // 음악추천 시간제한
-    const timer = setInterval(() => {
-      setCountdown(prevCountdown => {
-        if (prevCountdown === 0) {
-          clearInterval(timer);
-        }
-        return prevCountdown - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [lat, lng, music]);
-
+    // contdown 설정되면 20초 제한
+    if (countdown > 0) {
+      // 음악추천 시간제한
+      const timer = setInterval(() => {
+        setCountdown(prevCountdown => {
+          if (prevCountdown === 0) {
+            clearInterval(timer);
+          }
+          return prevCountdown - 1;
+        });
+      }, 1000);
+      return () => clearInterval(timer);
+    }
+  }, [lat, music, documents]);
   // 추천받기 클릭
   const handleClickRecommend = () => {
     getAi({ keyword: weather.description, successFn: successAiFn });
@@ -108,7 +110,7 @@ const Main = () => {
   };
   // 음악 추천받기 성공
   const successAiFn = async (res: any) => {
-    const arr: Music[] = [];
+    const arr: MusicAddItem[] = [];
     console.log('결과값', res);
     setLoding(false);
 
@@ -128,11 +130,15 @@ const Main = () => {
             : data.track.album.image[1]['#text'];
 
         const obj = {
-          ...item,
-          image: imageUrl,
-          link: {
-            youtube: `https://music.youtube.com/search?q=${item.artist}+${item.title}`,
-            melon: `https://www.melon.com/search/song/index.htm?q=${item.artist}+${item.title}`,
+          uid: 1,
+          musicid: '0',
+          music: {
+            ...item,
+            image: imageUrl,
+            link: {
+              youtube: `https://music.youtube.com/search?q=${item.artist}+${item.title}`,
+              melon: `https://www.melon.com/search/song/index.htm?q=${item.artist}+${item.title}`,
+            },
           },
         };
         // arr 배열에 추가
@@ -143,45 +149,43 @@ const Main = () => {
     setMusic(arr);
   };
 
-  // console.log('음악리스트', music);
-
   return (
     <>
-      <Header />
-      <MainWrap ref={container}>
-        {/* 날씨정보 */}
-        <WeatherWrap>
-          <WeatherBox weather={weather} lat={lat} />
-        </WeatherWrap>
-        {/* 음악리스트 */}
-        <MusicWrap>
-          {lat === 0 ? (
-            <MusicListSkeleton />
-          ) : music.length === 1 ? (
-            <>
-              <RecommendBtn onClick={handleClickRecommend}>
-                음악 추천 받기
-              </RecommendBtn>
-              {loading ? <Loading /> : null}
-            </>
-          ) : (
-            <>
-              <h4>
-                Music Recommend
-                {countdown > 0 ? (
-                  <p>{countdown}</p>
-                ) : (
-                  <RefreshBtn onClick={handleClickRecommend}>
-                    다시 추천받기
-                  </RefreshBtn>
-                )}
-              </h4>
-              <MusicList music={music} />
-            </>
-          )}
-        </MusicWrap>
-      </MainWrap>
-      <MusicVideo />
+      <BasicLayout>
+        <MainWrap ref={container}>
+          {/* 날씨정보 */}
+          <WeatherWrap>
+            <WeatherBox weather={weather} lat={lat} />
+          </WeatherWrap>
+          {/* 음악리스트 */}
+          <MusicWrap>
+            {lat === 0 ? (
+              <MusicListSkeleton />
+            ) : music.length === 1 ? (
+              <>
+                <RecommendBtn onClick={handleClickRecommend}>
+                  음악 추천 받기
+                </RecommendBtn>
+                {loading ? <Loading /> : null}
+              </>
+            ) : (
+              <>
+                <h4>
+                  Music Recommend
+                  {countdown > 0 ? (
+                    <p>{countdown}</p>
+                  ) : (
+                    <RefreshBtn onClick={handleClickRecommend}>
+                      다시 추천받기
+                    </RefreshBtn>
+                  )}
+                </h4>
+                <MusicList music={music} />
+              </>
+            )}
+          </MusicWrap>
+        </MainWrap>
+      </BasicLayout>
     </>
   );
 };

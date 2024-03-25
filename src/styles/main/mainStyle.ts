@@ -2,11 +2,6 @@ import styled from '@emotion/styled';
 
 export const MainWrap = styled.div`
   position: relative;
-  max-width: 798px;
-  margin: 0 auto;
-  padding: 1rem 5%;
-  color: #fff;
-  overflow-x: hidden;
 
   a {
     color: #fff;

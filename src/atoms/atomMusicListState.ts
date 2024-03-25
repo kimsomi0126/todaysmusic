@@ -24,3 +24,9 @@ export const atomHeartList = atom({
   default: initMusic,
   effects_UNSTABLE: [persistAtom],
 });
+
+export const atomFbList = atom({
+  key: 'atomFbList',
+  default: initMusic,
+  effects_UNSTABLE: [persistAtom],
+});

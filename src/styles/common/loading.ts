@@ -27,6 +27,7 @@ export const LoadingMusic = styled.div`
 
 export const LoadingBoxWrap = styled.div`
   position: relative;
+  margin-top: 2rem;
 `;
 export const LoadingBox = styled(motion.div)`
   width: 4.5rem;

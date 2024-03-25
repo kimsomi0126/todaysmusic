@@ -7,12 +7,17 @@ import {
   MusicItem,
   MusicMore,
 } from '../styles/main/musicListStyle';
-import { Music, MusicProps, VideoType } from '../types/musicTypes';
-import HeartIcon from './HeartIcon';
+import {
+  Music,
+  MusicAddItem,
+  MusicProps,
+  VideoType,
+} from '../types/musicTypes';
 import MusicInfoModal from './music/MusicInfoModal';
 import { getYoutube } from '../api/musicApi';
 import { useRecoilState } from 'recoil';
 import { atomVideoId, atomVideoOpen } from '../atoms/atomVideoState';
+import HeartBtn from './music/HeartBtn';
 
 const initDetail = {
   album: '',
@@ -21,7 +26,7 @@ const initDetail = {
   title: '',
   link: { youtube: '', melon: '' },
 };
-const MusicList = ({ music }: MusicProps) => {
+const MusicList = ({ music, check }: MusicProps) => {
   //상세정보 모달
   const [detail, setDetail] = useState<Music>(initDetail);
   const [isOpen, setIsOpen] = useState(false);
@@ -31,13 +36,13 @@ const MusicList = ({ music }: MusicProps) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [ytData, setYtData] = useRecoilState(atomVideoId);
 
-  const handleMoreClick = (item: Music) => {
-    setDetail(item);
+  const handleMoreClick = (item: MusicAddItem) => {
+    setDetail(item.music);
     setIsOpen(true);
   };
-  const handlePlayClick = async (item: Music) => {
-    const artist = item.artist;
-    const track = item.title;
+  const handlePlayClick = async (item: MusicAddItem) => {
+    const artist = item.music.artist;
+    const track = item.music.title;
     const data: VideoType = await getYoutube({ artist, track });
     setYtOpen(true);
     setYtData(data.items[0].id.videoId);
@@ -45,23 +50,24 @@ const MusicList = ({ music }: MusicProps) => {
   const handleClickClose = () => {
     setIsOpen(false);
   };
+
   return (
     <>
       {Array.isArray(music) &&
         music.map((item, index) => (
           <MusicItem key={index}>
-            <HeartIcon />
+            <HeartBtn item={item} check={check ? true : false} />
             <MusicContent>
               <MusicImage>
-                <img src={item.image} alt={item.album} />
+                <img src={item.music.image} alt={item.music.album} />
               </MusicImage>
               <MusicInfo
                 onClick={() => {
                   handlePlayClick(item);
                 }}
               >
-                <p className="title">{item.title}</p>
-                <p className="artist">{item.artist}</p>
+                <p className="title">{item.music.title}</p>
+                <p className="artist">{item.music.artist}</p>
               </MusicInfo>
             </MusicContent>
             <MusicMore

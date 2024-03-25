@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 export const WeatherWrap = styled.div`
   position: relative;
   width: 100%;
-  min-height: 45vh;
+  min-height: 40vh;
 `;
 
 export const WeatherInfo = styled.div`
@@ -59,13 +59,13 @@ export const BgObject = styled.div`
   &.obj02 {
     width: 9rem;
     height: 5rem;
-    left: 23%;
-    top: 5%;
+    left: 25%;
+    top: 0%;
   }
   &.obj03 {
     width: 8rem;
     height: 4rem;
     right: 0%;
-    top: 18%;
+    top: 8%;
   }
 `;
