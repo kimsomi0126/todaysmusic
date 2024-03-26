@@ -65,6 +65,10 @@ export type VideoType = {
 
 export type MusicAddItem = {
   uid: number;
-  musicid: string;
-  music: Music;
+  musicid: number;
+  album: string;
+  artist: string;
+  image: string;
+  title: string;
+  link: { youtube: string; melon: string };
 };

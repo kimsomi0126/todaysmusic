@@ -18,7 +18,6 @@ import WeatherBox from '../components/WeatherBox';
 import { useRecoilState } from 'recoil';
 import { atomMusicList } from '../atoms/atomMusicListState';
 import BasicLayout from '../layouts/BasicLayout';
-import { useColletion } from '../hooks/useColletion';
 
 const initWeather = {
   description: '',
@@ -44,7 +43,6 @@ const Main = () => {
   const coordinates = location.coordinates || { lat: 0, lng: 0 };
   const lat = coordinates.lat;
   const lng = coordinates.lng;
-  const { documents } = useColletion('mylist');
   // GSAP 실행
   gsap.registerPlugin(useGSAP);
   const container: any = useRef();
@@ -80,7 +78,7 @@ const Main = () => {
       }, 1000);
       return () => clearInterval(timer);
     }
-  }, [lat, music, documents]);
+  }, [lat, music]);
   // 추천받기 클릭
   const handleClickRecommend = () => {
     getAi({ keyword: weather.description, successFn: successAiFn });
@@ -120,7 +118,6 @@ const Main = () => {
       res.map(async (item: any) => {
         const artist = item.artist;
         const track = item.title;
-        // const search = `${artist} ${track}`;
         const data = await getTrackInfo({ artist, track });
         const imageUrl =
           data.error ||
@@ -130,24 +127,25 @@ const Main = () => {
             : data.track.album.image[1]['#text'];
 
         const obj = {
-          uid: 1,
-          musicid: '0',
-          music: {
-            ...item,
-            image: imageUrl,
-            link: {
-              youtube: `https://music.youtube.com/search?q=${item.artist}+${item.title}`,
-              melon: `https://www.melon.com/search/song/index.htm?q=${item.artist}+${item.title}`,
-            },
+          ...item,
+          image: imageUrl,
+          link: {
+            youtube: `https://music.youtube.com/search?q=${item.artist}+${item.title}`,
+            melon: `https://www.melon.com/search/song/index.htm?q=${item.artist}+${item.title}`,
           },
+          uid: 1,
+          musicid: 0,
         };
         // arr 배열에 추가
         arr.push(obj);
+        console.log(obj);
       }),
     );
 
     setMusic(arr);
   };
+
+  console.log(music);
 
   return (
     <>

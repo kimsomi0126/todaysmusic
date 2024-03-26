@@ -94,7 +94,7 @@ export const useFirebase = (transaction: string) => {
     try {
       const createdTime = timeStamp.fromDate(new Date());
       const docRef = await addDoc(colRef, { ...doc, createdTime });
-      console.log('???', docRef);
+      // console.log('???', docRef);
       dispatch({ type: 'addDoc', payload: docRef });
     } catch (error) {
       dispatch({ type: 'error', payload: (error as FirestoreError).message });
@@ -102,10 +102,11 @@ export const useFirebase = (transaction: string) => {
   };
 
   // Document 삭제
-  const deleteDocument = async (id: string) => {
+  const deleteDocument = async (id: number) => {
     dispatch({ type: 'isPending' });
     try {
-      await deleteDoc(doc(colRef, id));
+      const idString = id.toString();
+      await deleteDoc(doc(colRef, idString));
       dispatch({ type: 'deleteDoc' });
       console.log('삭제');
     } catch (error) {

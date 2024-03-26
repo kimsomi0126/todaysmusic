@@ -5,6 +5,8 @@ const { persistAtom } = recoilPersist();
 
 const initMusic = [
   {
+    uid: 0,
+    musicid: 0,
     album: '',
     artist: '',
     image: '',

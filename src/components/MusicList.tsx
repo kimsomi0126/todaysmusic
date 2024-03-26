@@ -26,7 +26,7 @@ const initDetail = {
   title: '',
   link: { youtube: '', melon: '' },
 };
-const MusicList = ({ music, check }: MusicProps) => {
+const MusicList = ({ music }: MusicProps) => {
   //상세정보 모달
   const [detail, setDetail] = useState<Music>(initDetail);
   const [isOpen, setIsOpen] = useState(false);
@@ -37,12 +37,12 @@ const MusicList = ({ music, check }: MusicProps) => {
   const [ytData, setYtData] = useRecoilState(atomVideoId);
 
   const handleMoreClick = (item: MusicAddItem) => {
-    setDetail(item.music);
+    setDetail(item);
     setIsOpen(true);
   };
   const handlePlayClick = async (item: MusicAddItem) => {
-    const artist = item.music.artist;
-    const track = item.music.title;
+    const artist = item.artist;
+    const track = item.title;
     const data: VideoType = await getYoutube({ artist, track });
     setYtOpen(true);
     setYtData(data.items[0].id.videoId);
@@ -56,18 +56,18 @@ const MusicList = ({ music, check }: MusicProps) => {
       {Array.isArray(music) &&
         music.map((item, index) => (
           <MusicItem key={index}>
-            <HeartBtn item={item} check={check ? true : false} />
+            <HeartBtn item={item} />
             <MusicContent>
               <MusicImage>
-                <img src={item.music.image} alt={item.music.album} />
+                <img src={item.image} alt={item.album} />
               </MusicImage>
               <MusicInfo
                 onClick={() => {
                   handlePlayClick(item);
                 }}
               >
-                <p className="title">{item.music.title}</p>
-                <p className="artist">{item.music.artist}</p>
+                <p className="title">{item.title}</p>
+                <p className="artist">{item.artist}</p>
               </MusicInfo>
             </MusicContent>
             <MusicMore

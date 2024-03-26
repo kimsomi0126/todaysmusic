@@ -7,13 +7,22 @@ import { useRecoilState } from 'recoil';
 import { atomHeartList } from '../atoms/atomMusicListState';
 
 const BasicLayout = ({ children }: React.PropsWithChildren) => {
+  const { documents } = useColletion('mylist');
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [heartList, setHeartList] = useRecoilState(atomHeartList);
-  const { documents } = useColletion('mylist');
   useEffect(() => {
-    setHeartList(documents);
+    getList();
   }, [documents]);
-  console.log(documents);
+  const getList = async () => {
+    try {
+      await setHeartList(documents);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log('좋아요 음악', heartList);
+  console.log('좋아요 document', documents);
+
   return (
     <Wrap>
       <Header />
