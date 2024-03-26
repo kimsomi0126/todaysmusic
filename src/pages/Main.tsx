@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import useGeolocation from '../hooks/useGeolocation';
 import { getWeather } from '../api/weatherApi';
 import Loading from '../components/Loading';
-import MusicList from '../components/MusicList';
+import MusicList from '../components/music/MusicList';
 import { getTrackInfo } from '../api/musicApi';
 import { getAi } from '../api/openaiApi';
 import { WeatherWrap } from '../styles/main/weatherStyle';
@@ -18,6 +18,7 @@ import WeatherBox from '../components/WeatherBox';
 import { useRecoilState } from 'recoil';
 import { atomMusicList } from '../atoms/atomMusicListState';
 import BasicLayout from '../layouts/BasicLayout';
+import { useLogin } from '../hooks/useLogin';
 
 const initWeather = {
   description: '',
@@ -38,6 +39,8 @@ const Main = () => {
   // 로딩체크
   const [loading, setLoding] = useState(false);
   const [countdown, setCountdown] = useState(0);
+  // 로그인 체크
+  const { loginState } = useLogin();
   // 현재 좌표
   const location = useGeolocation();
   const coordinates = location.coordinates || { lat: 0, lng: 0 };
@@ -133,7 +136,7 @@ const Main = () => {
             youtube: `https://music.youtube.com/search?q=${item.artist}+${item.title}`,
             melon: `https://www.melon.com/search/song/index.htm?q=${item.artist}+${item.title}`,
           },
-          uid: 1,
+          uid: loginState.uid,
           musicid: 0,
         };
         // arr 배열에 추가
@@ -145,7 +148,7 @@ const Main = () => {
     setMusic(arr);
   };
 
-  console.log(music);
+  // console.log(music);
 
   return (
     <>

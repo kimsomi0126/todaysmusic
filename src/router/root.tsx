@@ -6,6 +6,8 @@ import { Suspense, lazy } from 'react';
 const LazyMainPage = lazy(() => import('../pages/Main'));
 const LazyMypagePage = lazy(() => import('../pages/Mypage'));
 const LazyNoticePage = lazy(() => import('../pages/Notice'));
+const LazyLoginPage = lazy(() => import('../pages/Login'));
+const LazySignupPage = lazy(() => import('../pages/Signup'));
 
 const router = createBrowserRouter([
   {
@@ -29,6 +31,22 @@ const router = createBrowserRouter([
     element: (
       <Suspense fallback={<Loading />}>
         <LazyNoticePage />
+      </Suspense>
+    ),
+  },
+  {
+    path: '/login',
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LazyLoginPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: '/signup',
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LazySignupPage />
       </Suspense>
     ),
   },

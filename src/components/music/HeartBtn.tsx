@@ -1,9 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { Heart } from '../../styles/main/musicListStyle';
 import { useRecoilState } from 'recoil';
 import { atomHeartList } from '../../atoms/atomMusicListState';
 import { MusicAddItem } from '../../types/musicTypes';
 import { useFirebase } from '../../hooks/useFirebase';
+import { useLogin } from '../../hooks/useLogin';
+import { atomIsLogin } from '../../atoms/atomUserState';
+import Modal from '../common/Modal';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   item: MusicAddItem;
@@ -11,27 +16,41 @@ type Props = {
 };
 
 const HeartBtn = ({ item }: Props) => {
+  const navigate = useNavigate();
+  //로그인체크
+  const [isLogin, setIsLogin] = useRecoilState(atomIsLogin);
   // 하트 상태
   const [heartCheck, setHeartCheck] = useState(false);
   // 음악 리스트
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [heartList, setHeartList] = useRecoilState(atomHeartList);
   // firebase
   const { addDocument, deleteDocument } = useFirebase('mylist');
+  const { loginState } = useLogin();
+
+  //모달창
+  const [modalTitle, setModalTitle] = useState('');
+  const [modalDesc, setModalDesc] = useState('');
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalIsNav, setModalIsNav] = useState('');
 
   // 랜더링 후 실행
-  //
   useEffect(() => {
-    if (heartList !== null) {
+    if (heartList) {
       setHeartCheck(
         heartList.some((heartItem: MusicAddItem) => isEqual(item, heartItem)),
       );
     }
   }, []);
-
+  // 하트버튼 클릭
   const handleClickHeart = () => {
+    if (!isLogin) {
+      setModalIsOpen(true);
+      setModalTitle('로그인 전용');
+      setModalDesc('로그인하면 마음에 드는 음악을 \n 보관할 수 있습니다.');
+      setModalIsNav('/login');
+      return;
+    }
     if (heartCheck) {
-      setHeartCheck(false);
       console.log(typeof item.musicid);
       deleteDocument(item.musicid);
     } else {
@@ -55,10 +74,17 @@ const HeartBtn = ({ item }: Props) => {
       image: item.image,
       title: item.title,
       link: item.link,
-      uid: 1,
+      uid: loginState.uid,
       musicid: Date.now(),
     };
     addDocument(musicItem);
+  };
+
+  const handleOk = () => {
+    setModalIsOpen(false);
+    if (modalIsNav) {
+      navigate(modalIsNav);
+    }
   };
 
   return (
@@ -71,6 +97,13 @@ const HeartBtn = ({ item }: Props) => {
         리셋
       </button> */}
       <Heart className={heartCheck ? 'on' : ''} onClick={handleClickHeart} />
+
+      <Modal
+        title={modalTitle}
+        desc={modalDesc}
+        onClick={handleOk}
+        isOpen={modalIsOpen}
+      />
     </>
   );
 };

@@ -28,4 +28,8 @@ export const PageTitle = styled.div`
     font-size: 1.8rem;
     font-weight: 300;
   }
+  &.black {
+    color: #222;
+    border-color: #222;
+  }
 `;

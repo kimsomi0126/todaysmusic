@@ -27,6 +27,10 @@ button {
   cursor: pointer;
   border: 0;
 }
+pre {
+  letter-spacing: -0.8px;
+  line-height: 1.3;
+}
 html {
   min-width: 320px;
   height: 100%;

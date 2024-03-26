@@ -9,6 +9,7 @@ import {
   Query,
   where,
 } from 'firebase/firestore';
+import { useLogin } from './useLogin';
 
 // FB 문서들을 모아 놓은 배열의 인터페이스
 interface Document {
@@ -20,11 +21,12 @@ interface Document {
 export const useColletion = (transaction: string) => {
   const [documents, setDocuments] = useState<Document[] | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const { loginState } = useLogin();
 
   useEffect(() => {
     const q: Query = query(
       collection(appFireStore, transaction),
-      where('uid', '==', 1),
+      where('uid', '==', loginState.uid),
     );
 
     const unsubscribe = onSnapshot(

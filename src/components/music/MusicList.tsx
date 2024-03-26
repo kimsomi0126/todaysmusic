@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 import { useState } from 'react';
 import {
@@ -6,18 +7,18 @@ import {
   MusicInfo,
   MusicItem,
   MusicMore,
-} from '../styles/main/musicListStyle';
+} from '../../styles/main/musicListStyle';
 import {
   Music,
   MusicAddItem,
   MusicProps,
   VideoType,
-} from '../types/musicTypes';
-import MusicInfoModal from './music/MusicInfoModal';
-import { getYoutube } from '../api/musicApi';
+} from '../../types/musicTypes';
+import MusicInfoModal from './MusicInfoModal';
+import { getYoutube } from '../../api/musicApi';
 import { useRecoilState } from 'recoil';
-import { atomVideoId, atomVideoOpen } from '../atoms/atomVideoState';
-import HeartBtn from './music/HeartBtn';
+import { atomVideoId, atomVideoOpen } from '../../atoms/atomVideoState';
+import HeartBtn from './HeartBtn';
 
 const initDetail = {
   album: '',
@@ -27,13 +28,11 @@ const initDetail = {
   link: { youtube: '', melon: '' },
 };
 const MusicList = ({ music }: MusicProps) => {
-  //상세정보 모달
+  //상세정보
   const [detail, setDetail] = useState<Music>(initDetail);
   const [isOpen, setIsOpen] = useState(false);
-  //유튜브영상오픈
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  //유튜브영상
   const [ytOpen, setYtOpen] = useRecoilState(atomVideoOpen);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [ytData, setYtData] = useRecoilState(atomVideoId);
 
   const handleMoreClick = (item: MusicAddItem) => {

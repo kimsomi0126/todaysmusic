@@ -64,7 +64,7 @@ export type VideoType = {
 };
 
 export type MusicAddItem = {
-  uid: number;
+  uid: string;
   musicid: number;
   album: string;
   artist: string;
