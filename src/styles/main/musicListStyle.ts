@@ -140,8 +140,7 @@ export const SearchWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom: 1px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
   padding: 1rem 0;
 `;
 export const YtBtn = styled.button`
