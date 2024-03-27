@@ -12,6 +12,7 @@ import { UserState } from '../types/userTypes';
 import { useFirebase } from './useFirebase';
 import { atomIsLogin, atomLoginState } from '../atoms/atomUserState';
 import { useNavigate } from 'react-router-dom';
+import { atomMusicList } from '../atoms/atomMusicListState';
 
 export const useLogin = () => {
   const navigate = useNavigate();
@@ -22,6 +23,8 @@ export const useLogin = () => {
   const [modalDesc, setModalDesc] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalIsNav, setModalIsNav] = useState('');
+  // 메인음악 정보
+  const [music, setMusic] = useRecoilState(atomMusicList);
   // 로그인체크 state
   const [isLogin, setIsLogin] = useRecoilState(atomIsLogin);
   // user data 추가
@@ -100,6 +103,18 @@ export const useLogin = () => {
     try {
       // 로그아웃 후 loginState 초기화
       await signOut(auth);
+      setMusic([
+        {
+          uid: 0,
+          musicid: 0,
+          heart: false,
+          album: '',
+          artist: '',
+          image: '',
+          title: '',
+          link: { youtube: '', melon: '' },
+        },
+      ]);
       // 안내문구
       setModalIsOpen(true);
       setModalTitle('로그아웃');

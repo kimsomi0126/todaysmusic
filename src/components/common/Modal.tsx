@@ -13,9 +13,9 @@ const Modal = ({ title, desc, onClick, isOpen }: Props) => {
       {isOpen ? (
         <AlertModalWrap>
           <b>{title}</b>
-          <p>
+          <div>
             <pre>{desc}</pre>
-          </p>
+          </div>
           <button onClick={onClick}>확인</button>
         </AlertModalWrap>
       ) : null}

@@ -1,5 +1,17 @@
 import React from 'react';
-import { MelonBtn, ModalWrap, YtBtn } from '../../styles/main/musicListStyle';
+import {
+  CloseBtn,
+  DetailAlbum,
+  DetailArtist,
+  DetailImage,
+  DetailInfo,
+  DetailList,
+  DetailTrack,
+  MelonBtn,
+  ModalWrap,
+  SearchWrap,
+  YtBtn,
+} from '../../styles/main/musicListStyle';
 import { Music } from '../../types/musicTypes';
 
 type Modal = {
@@ -11,42 +23,47 @@ const MusicInfoModal = ({ item, handleClickClose }: Modal) => {
   return (
     <ModalWrap>
       <h3>상세정보</h3>
-      <ul>
-        <li>
+      <DetailList>
+        <DetailImage>
           <img src={item.image} alt={item.album} />
-        </li>
-        <li>
-          <b>{item.title}</b>
-        </li>
-        <li>
-          <p>{item.album}</p>
-        </li>
-        <li>
-          <p>{item.artist}</p>
-        </li>
-      </ul>
-      <YtBtn
-        onClick={() => {
-          window.open(`${item.link.youtube}`);
-        }}
-      >
-        유튜브뮤직
-      </YtBtn>
-      <MelonBtn
-        onClick={() => {
-          window.open(`${item.link.melon}`);
-        }}
-      >
-        <img src="/images/logo_melon.png" alt="멜론 아이콘" />
-      </MelonBtn>
+        </DetailImage>
+        <DetailInfo>
+          <DetailTrack>{item.title}</DetailTrack>
+          <DetailAlbum>
+            <dt>앨범</dt>
+            <dd>{item.album}</dd>
+          </DetailAlbum>
+          <DetailArtist>
+            <dt>가수</dt>
+            <dd>{item.artist}</dd>
+          </DetailArtist>
+        </DetailInfo>
+      </DetailList>
+      <p>음악사이트 검색</p>
+      <SearchWrap>
+        <YtBtn
+          onClick={() => {
+            window.open(`${item.link.youtube}`);
+          }}
+        >
+          <img src="/images/yt_music_icon.svg" alt="유튜브뮤직 아이콘" />
+        </YtBtn>
+        <MelonBtn
+          onClick={() => {
+            window.open(`${item.link.melon}`);
+          }}
+        >
+          <img src="/images/logo_melon.png" alt="멜론 아이콘" />
+        </MelonBtn>
+      </SearchWrap>
       <br />
-      <button
+      <CloseBtn
         onClick={() => {
           handleClickClose();
         }}
       >
         닫기
-      </button>
+      </CloseBtn>
     </ModalWrap>
   );
 };

@@ -12,7 +12,7 @@ export const AlertModalWrap = styled.div`
   color: #222;
   text-align: center;
   z-index: 9;
-  p {
+  div {
     font-size: 1.4rem;
     margin: 1rem 0 2rem;
   }

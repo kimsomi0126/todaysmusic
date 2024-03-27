@@ -86,20 +86,86 @@ export const ModalWrap = styled.div`
   button {
     color: #fff;
     border-radius: 5rem;
-    font-size: 1.2rem;
-    padding: 0.5rem 1rem;
+    padding: 1rem 2rem;
   }
+
+  p {
+    width: 100%;
+    font-weight: 500;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+`;
+
+export const DetailList = styled.div`
+  text-align: left;
+  display: flex;
+  background: #fafafa;
+  padding: 2rem;
+  margin-bottom: 1rem;
+  dl {
+    width: 100%;
+    display: flex;
+    font-weight: 500;
+    color: #888;
+    margin: 2px 0;
+  }
+  dt {
+    margin-right: 0.5rem;
+  }
+`;
+export const DetailImage = styled.div`
+  width: 7rem;
+  margin-right: 1rem;
+  img {
+    max-width: 100%;
+  }
+`;
+export const DetailInfo = styled.div`
+  width: calc(100% - 8rem);
+`;
+export const DetailTrack = styled.div`
+  font-weight: 700;
+  font-size: 1.8rem;
+  margin-bottom: 0.25rem;
+`;
+export const DetailAlbum = styled.dl`
+  font-size: 1.4rem;
+`;
+export const DetailArtist = styled.dl`
+  font-size: 1.4rem;
+`;
+
+export const SearchWrap = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px;
+  padding: 1rem 0;
 `;
 export const YtBtn = styled.button`
   position: relative;
-  background: #555;
+  background: #fafafa;
+  width: 48%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  img {
+    height: 1.5rem;
+    vertical-align: 0%;
+  }
 `;
 export const MelonBtn = styled.button`
   position: relative;
+  width: 48%;
   background: #fff;
   border: 1px solid #ddd;
   img {
-    height: 1rem;
-    vertical-align: 10%;
+    height: 1.5rem;
+    vertical-align: 0%;
   }
+`;
+
+export const CloseBtn = styled.button`
+  background: #222;
+  width: 100%;
 `;

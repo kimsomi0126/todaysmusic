@@ -19,6 +19,9 @@ import { getYoutube } from '../../api/musicApi';
 import { useRecoilState } from 'recoil';
 import { atomVideoId, atomVideoOpen } from '../../atoms/atomVideoState';
 import HeartBtn from './HeartBtn';
+import { atomIsLogin } from '../../atoms/atomUserState';
+import Modal from '../common/Modal';
+import { useNavigate } from 'react-router-dom';
 
 const initDetail = {
   album: '',
@@ -27,7 +30,15 @@ const initDetail = {
   title: '',
   link: { youtube: '', melon: '' },
 };
-const MusicList = ({ music }: MusicProps) => {
+const MusicList = ({ music, heart }: MusicProps) => {
+  const navigate = useNavigate();
+  //로그인체크
+  const [isLogin, setIsLogin] = useRecoilState(atomIsLogin);
+  //모달창
+  const [modalTitle, setModalTitle] = useState('');
+  const [modalDesc, setModalDesc] = useState('');
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalIsNav, setModalIsNav] = useState('');
   //상세정보
   const [detail, setDetail] = useState<Music>(initDetail);
   const [isOpen, setIsOpen] = useState(false);
@@ -40,6 +51,12 @@ const MusicList = ({ music }: MusicProps) => {
     setIsOpen(true);
   };
   const handlePlayClick = async (item: MusicAddItem) => {
+    if (!isLogin) {
+      setModalIsOpen(true);
+      setModalTitle('로그인 전용');
+      setModalDesc('로그인하면 유튜브 영상으로 \n음악을 재생할 수 있습니다.');
+      return;
+    }
     const artist = item.artist;
     const track = item.title;
     const data: VideoType = await getYoutube({ artist, track });
@@ -49,13 +66,19 @@ const MusicList = ({ music }: MusicProps) => {
   const handleClickClose = () => {
     setIsOpen(false);
   };
+  const handleOk = () => {
+    setModalIsOpen(false);
+    if (modalIsNav) {
+      navigate(modalIsNav);
+    }
+  };
 
   return (
     <>
       {Array.isArray(music) &&
         music.map((item, index) => (
           <MusicItem key={index}>
-            <HeartBtn item={item} />
+            <HeartBtn item={item} heart={heart} />
             <MusicContent>
               <MusicImage>
                 <img src={item.image} alt={item.album} />
@@ -79,6 +102,12 @@ const MusicList = ({ music }: MusicProps) => {
       {isOpen ? (
         <MusicInfoModal item={detail} handleClickClose={handleClickClose} />
       ) : null}
+      <Modal
+        title={modalTitle}
+        desc={modalDesc}
+        onClick={handleOk}
+        isOpen={modalIsOpen}
+      />
     </>
   );
 };

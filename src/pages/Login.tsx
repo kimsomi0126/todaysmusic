@@ -28,12 +28,14 @@ const Login = () => {
             type="email"
             placeholder="이메일입력"
             name="email"
+            defaultValue="test@test.com"
             required
           />
           <IptItem
             type="password"
             placeholder="비밀번호입력 (최소 6자 이상)"
             name="password"
+            defaultValue="123123"
             required
             autoComplete="false"
           />

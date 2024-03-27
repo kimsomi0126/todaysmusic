@@ -7,6 +7,7 @@ const initMusic = [
   {
     uid: 0,
     musicid: 0,
+    heart: false,
     album: '',
     artist: '',
     image: '',

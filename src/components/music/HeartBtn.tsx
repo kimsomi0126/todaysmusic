@@ -12,10 +12,10 @@ import { useNavigate } from 'react-router-dom';
 
 type Props = {
   item: MusicAddItem;
-  check?: boolean;
+  heart?: boolean;
 };
 
-const HeartBtn = ({ item }: Props) => {
+const HeartBtn = ({ item, heart }: Props) => {
   const navigate = useNavigate();
   //로그인체크
   const [isLogin, setIsLogin] = useRecoilState(atomIsLogin);
@@ -32,6 +32,8 @@ const HeartBtn = ({ item }: Props) => {
   const [modalDesc, setModalDesc] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalIsNav, setModalIsNav] = useState('');
+
+  const isHeart = heart ? heartCheck : item.heart;
 
   // 랜더링 후 실행
   useEffect(() => {
@@ -50,9 +52,10 @@ const HeartBtn = ({ item }: Props) => {
       setModalIsNav('/login');
       return;
     }
-    if (heartCheck) {
+    if (heartCheck || item.heart) {
       console.log(typeof item.musicid);
       deleteDocument(item.musicid);
+      setHeartCheck(false);
     } else {
       setHeartCheck(true);
       addMusic(item);
@@ -71,6 +74,7 @@ const HeartBtn = ({ item }: Props) => {
     const musicItem: MusicAddItem = {
       album: item.album,
       artist: item.artist,
+      heart: true,
       image: item.image,
       title: item.title,
       link: item.link,
@@ -96,7 +100,7 @@ const HeartBtn = ({ item }: Props) => {
       >
         리셋
       </button> */}
-      <Heart className={heartCheck ? 'on' : ''} onClick={handleClickHeart} />
+      <Heart className={isHeart ? 'on' : ''} onClick={handleClickHeart} />
 
       <Modal
         title={modalTitle}

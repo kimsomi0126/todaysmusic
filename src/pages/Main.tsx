@@ -86,7 +86,6 @@ const Main = () => {
   const handleClickRecommend = () => {
     getAi({ keyword: weather.description, successFn: successAiFn });
     setLoding(true);
-    setCountdown(20);
   };
   // 날씨정보 가져오기 성공
   const successFn = (res: any) => {
@@ -131,6 +130,7 @@ const Main = () => {
 
         const obj = {
           ...item,
+          heart: false,
           image: imageUrl,
           link: {
             youtube: `https://music.youtube.com/search?q=${item.artist}+${item.title}`,
@@ -141,7 +141,6 @@ const Main = () => {
         };
         // arr 배열에 추가
         arr.push(obj);
-        console.log(obj);
       }),
     );
 
@@ -174,14 +173,19 @@ const Main = () => {
                 <h4>
                   Music Recommend
                   {countdown > 0 ? (
-                    <p>{countdown}</p>
+                    <p>{countdown}초 후 다시추천 가능</p>
                   ) : (
-                    <RefreshBtn onClick={handleClickRecommend}>
+                    <RefreshBtn
+                      onClick={() => {
+                        setCountdown(20);
+                        handleClickRecommend();
+                      }}
+                    >
                       다시 추천받기
                     </RefreshBtn>
                   )}
                 </h4>
-                <MusicList music={music} />
+                <MusicList music={music} heart={true} />
               </>
             )}
           </MusicWrap>

@@ -7,7 +7,7 @@ const WeatherSkeleton = () => {
   return (
     <>
       <SkeletonTheme
-        baseColor="rgba(24, 24, 24, 0.8)"
+        baseColor="#072045"
         highlightColor="rgba(150, 150, 150, 0.1)"
       >
         <LoadingWeather className="loading-weather">
