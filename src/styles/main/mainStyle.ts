@@ -23,6 +23,12 @@ export const YtModalWrap = styled.div`
 
   iframe {
     border: 0;
+    width: 30rem;
+    height: 20rem;
+    &.on {
+      width: 5rem;
+      height: 5rem;
+    }
   }
 `;
 

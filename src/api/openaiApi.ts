@@ -9,7 +9,7 @@ export const getAi = async ({ keyword, successFn }: OpenAiProps) => {
       {
         role: 'system',
         content:
-          '키워드 날씨에 어울리는 음악 최소 5곡을 [{album:"앨범명",artist:"가수이름", title:"음악이름"},{album:"앨범명", artist:"가수이름", title:"음악이름"}] 이 양식에 맞춰서 json으로 제출, 반드시 다른말 없이 json만 대답해야함.',
+          'Provide a JSON with at least 5 songs that match the keyword "weather-appropriate music" in the following format: [{album:"Album Title", artist:"Artist Name", title:"Song Title"}, {album:"Album Title", artist:"Artist Name", title:"Song Title"}]. Responses must be in JSON format only without any additional text.',
       },
       {
         role: 'user',

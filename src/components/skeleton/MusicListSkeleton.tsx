@@ -12,9 +12,25 @@ const MusicListSkeleton = () => {
         <LoadingMusic>
           <Skeleton width="6rem" height="6rem" className="loading-image" />
           <div>
-            <Skeleton width="15rem" />
-            <Skeleton width="15rem" />
-            <Skeleton width="10.5rem" />
+            <Skeleton width="30vw" />
+            <Skeleton width="28vw" />
+            <Skeleton width="38vw" />
+          </div>
+        </LoadingMusic>
+        <LoadingMusic>
+          <Skeleton width="6rem" height="6rem" className="loading-image" />
+          <div>
+            <Skeleton width="30vw" />
+            <Skeleton width="28vw" />
+            <Skeleton width="38vw" />
+          </div>
+        </LoadingMusic>
+        <LoadingMusic>
+          <Skeleton width="6rem" height="6rem" className="loading-image" />
+          <div>
+            <Skeleton width="30vw" />
+            <Skeleton width="28vw" />
+            <Skeleton width="38vw" />
           </div>
         </LoadingMusic>
       </SkeletonTheme>

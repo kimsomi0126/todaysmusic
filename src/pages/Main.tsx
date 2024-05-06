@@ -76,9 +76,9 @@ const Main = () => {
           if (prevCountdown === 0) {
             clearInterval(timer);
           }
-          return prevCountdown - 1;
+          return prevCountdown - 2;
         });
-      }, 1000);
+      }, 2000);
       return () => clearInterval(timer);
     }
   }, [lat, music]);
@@ -111,7 +111,7 @@ const Main = () => {
   // 음악 추천받기 성공
   const successAiFn = async (res: any) => {
     const arr: MusicAddItem[] = [];
-    console.log('결과값', res);
+    // console.log('결과값', res);
     setLoding(false);
 
     // 음악추천 가수 + 노래명으로 앨범커버 가져오기
@@ -173,7 +173,9 @@ const Main = () => {
                 <h4>
                   Music Recommend
                   {countdown > 0 ? (
-                    <p>{countdown}초 후 다시추천 가능</p>
+                    <div>
+                      <p>{countdown}</p>
+                    </div>
                   ) : (
                     <RefreshBtn
                       onClick={() => {

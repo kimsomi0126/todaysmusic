@@ -12,6 +12,7 @@ import { useRecoilState } from 'recoil';
 import { atomIsLogin } from '../../atoms/atomUserState';
 import { useLogin } from '../../hooks/useLogin';
 import Modal from './Modal';
+import HeaderMenu from './HeaderMenu';
 
 const Header = () => {
   const [isOn, setIsOn] = useState(false);
@@ -26,6 +27,7 @@ const Header = () => {
           <Link to="/" className="logo">
             <img src="/images/logo_w.svg" alt="" />
           </Link>
+          <HeaderMenu />
           <MenuBar
             className={isOn ? 'on' : ''}
             onClick={() => {
@@ -40,6 +42,12 @@ const Header = () => {
         <MenuWrap className={isOn ? 'on' : ''}>
           <MenuInner>
             <ul>
+              <li>
+                <Link to={'/notice'}>
+                  <img src="/images/notice_icon.svg" alt="" />
+                  <p>공지사항</p>
+                </Link>
+              </li>
               {isLogin ? (
                 <>
                   <li>
@@ -48,18 +56,21 @@ const Header = () => {
                       <p>내 음악</p>
                     </Link>
                   </li>
-                  <li>
-                    <button
-                      onClick={() => {
-                        getLogOut();
-                        setIsOn(false);
-                      }}
-                    >
-                      <img src="/images/logout_icon.svg" alt="" />
-                      <p>로그아웃</p>
-                    </button>
-                  </li>
                 </>
+              ) : null}
+
+              {isLogin ? (
+                <li>
+                  <button
+                    onClick={() => {
+                      getLogOut();
+                      setIsOn(false);
+                    }}
+                  >
+                    <img src="/images/logout_icon.svg" alt="" />
+                    <p>로그아웃</p>
+                  </button>
+                </li>
               ) : (
                 <li>
                   <Link to={'/login'}>
@@ -68,13 +79,6 @@ const Header = () => {
                   </Link>
                 </li>
               )}
-
-              <li>
-                <Link to={'/notice'}>
-                  <img src="/images/notice_icon.svg" alt="" />
-                  <p>공지사항</p>
-                </Link>
-              </li>
             </ul>
           </MenuInner>
         </MenuWrap>

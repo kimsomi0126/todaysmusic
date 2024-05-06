@@ -42,7 +42,7 @@ const HeartBtn = ({ item, heart }: Props) => {
         heartList.some((heartItem: MusicAddItem) => isEqual(item, heartItem)),
       );
     }
-  }, []);
+  }, [item, heartList]);
   // 하트버튼 클릭
   const handleClickHeart = () => {
     if (!isLogin) {
@@ -53,7 +53,7 @@ const HeartBtn = ({ item, heart }: Props) => {
       return;
     }
     if (heartCheck || item.heart) {
-      console.log(typeof item.musicid);
+      console.log(item.musicid);
       deleteDocument(item.musicid);
       setHeartCheck(false);
     } else {

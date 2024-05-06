@@ -11,10 +11,10 @@ const WeatherSkeleton = () => {
         highlightColor="rgba(150, 150, 150, 0.1)"
       >
         <LoadingWeather className="loading-weather">
-          <Skeleton width="20rem" />
-          <Skeleton width="10rem" />
-          <Skeleton width="15rem" height="8rem" />
-          <Skeleton width="20rem" />
+          <Skeleton width="30vw" height="2rem" />
+          <Skeleton width="20vw" height="2rem" />
+          <Skeleton width="25vw" height="12rem" />
+          <Skeleton width="30vw" height="2rem" />
         </LoadingWeather>
       </SkeletonTheme>
     </>

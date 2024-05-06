@@ -80,7 +80,20 @@ export const MenuBar = styled.button`
   }
 `;
 
-// 메뉴
+//헤더 메뉴
+
+export const HeaderMenuList = styled.div`
+  display: flex;
+  gap: 3vw;
+  margin-left: auto;
+  padding-right: 2rem;
+  a,
+  button {
+    color: #fff;
+  }
+`;
+
+// 전체메뉴
 export const MenuWrap = styled.div`
   position: fixed;
   left: 0;
