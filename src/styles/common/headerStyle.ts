@@ -86,7 +86,7 @@ export const HeaderMenuList = styled.div`
   display: flex;
   gap: 3vw;
   margin-left: auto;
-  padding-right: 2rem;
+  padding-right: 3vw;
   a,
   button {
     color: #fff;
