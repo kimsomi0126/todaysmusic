@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "오늘의 뮤직",
+  "name": "O:MU | 오늘의 뮤직",
   "icons": [
     {
       "src": "favicon.ico",

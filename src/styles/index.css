@@ -47,6 +47,7 @@ body {
 }
 
 #root {
+  min-height: 100vh;
   background: linear-gradient(0deg, #345687 0%, #072045 100%) no-repeat;
 }
 

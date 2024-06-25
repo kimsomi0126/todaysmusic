@@ -17,9 +17,13 @@ export const AlertModalWrap = styled.div`
     margin: 1rem 0 2rem;
   }
   button {
-    background: #222;
+    background: rgba(75, 93, 255, 0.9);
     color: #fff;
     padding: 0.5rem 3rem;
     border-radius: 2rem;
+    transition: 0.2s;
+    :hover {
+      background: rgba(75, 93, 255, 1);
+    }
   }
 `;

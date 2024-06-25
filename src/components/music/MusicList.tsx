@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   MusicContent,
   MusicImage,
@@ -72,6 +72,14 @@ const MusicList = ({ music, heart }: MusicProps) => {
       navigate(modalIsNav);
     }
   };
+  const modalRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    document.addEventListener('click', (e: { target: any }) => {
+      if (modalRef.current && !modalRef.current.contains(e.target)) {
+        console.log('??');
+      }
+    });
+  }, []);
 
   return (
     <>
@@ -100,7 +108,11 @@ const MusicList = ({ music, heart }: MusicProps) => {
           </MusicItem>
         ))}
       {isOpen ? (
-        <MusicInfoModal item={detail} handleClickClose={handleClickClose} />
+        <MusicInfoModal
+          ref={modalRef}
+          item={detail}
+          handleClickClose={handleClickClose}
+        />
       ) : null}
       <Modal
         title={modalTitle}

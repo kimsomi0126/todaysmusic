@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Loading from '../components/Loading';
 import { Suspense, lazy } from 'react';
+import BasicLayout from '../layouts/BasicLayout';
 
 // 메인패스 컴포넌트
 const LazyMainPage = lazy(() => import('../pages/Main'));
@@ -13,7 +14,13 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: (
-      <Suspense fallback={<Loading />}>
+      <Suspense
+        fallback={
+          <BasicLayout>
+            <Loading />
+          </BasicLayout>
+        }
+      >
         <LazyMainPage />
       </Suspense>
     ),
@@ -21,7 +28,13 @@ const router = createBrowserRouter([
   {
     path: '/mypage',
     element: (
-      <Suspense fallback={<Loading />}>
+      <Suspense
+        fallback={
+          <BasicLayout>
+            <Loading />
+          </BasicLayout>
+        }
+      >
         <LazyMypagePage />
       </Suspense>
     ),
@@ -29,7 +42,13 @@ const router = createBrowserRouter([
   {
     path: '/notice',
     element: (
-      <Suspense fallback={<Loading />}>
+      <Suspense
+        fallback={
+          <BasicLayout>
+            <Loading />
+          </BasicLayout>
+        }
+      >
         <LazyNoticePage />
       </Suspense>
     ),
@@ -37,7 +56,13 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: (
-      <Suspense fallback={<Loading />}>
+      <Suspense
+        fallback={
+          <BasicLayout>
+            <Loading />
+          </BasicLayout>
+        }
+      >
         <LazyLoginPage />
       </Suspense>
     ),
@@ -45,7 +70,13 @@ const router = createBrowserRouter([
   {
     path: '/signup',
     element: (
-      <Suspense fallback={<Loading />}>
+      <Suspense
+        fallback={
+          <BasicLayout>
+            <Loading />
+          </BasicLayout>
+        }
+      >
         <LazySignupPage />
       </Suspense>
     ),

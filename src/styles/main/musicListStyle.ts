@@ -79,7 +79,7 @@ export const ModalWrap = styled.div`
   border-radius: 1.5rem;
   background: rgba(255, 255, 255, 1);
   min-width: 30rem;
-  min-height: 30rem;
+  /* min-height: 30rem; */
   color: #222;
   text-align: center;
   z-index: 9;
@@ -90,10 +90,26 @@ export const ModalWrap = styled.div`
   }
 
   p {
-    width: 100%;
+    position: relative;
     font-weight: 500;
     font-size: 1.4rem;
     margin-bottom: 1rem;
+    color: rgba(0, 0, 0, 0.5);
+    span {
+      display: inline-block;
+      background: #fff;
+      padding: 0 1.5rem;
+    }
+    :before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 100%;
+      height: 1px;
+      background: rgba(0, 0, 0, 0.1);
+      z-index: -1;
+    }
   }
 `;
 
@@ -102,7 +118,7 @@ export const DetailList = styled.div`
   display: flex;
   background: #fafafa;
   padding: 2rem;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
   dl {
     width: 100%;
     display: flex;
@@ -140,8 +156,7 @@ export const SearchWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
-  padding: 1rem 0;
+  /* padding: 1rem 0; */
 `;
 export const YtBtn = styled.button`
   position: relative;
@@ -150,7 +165,7 @@ export const YtBtn = styled.button`
   border: 1px solid rgba(0, 0, 0, 0.1);
   img {
     height: 1.5rem;
-    vertical-align: 0%;
+    vertical-align: -7%;
   }
 `;
 export const MelonBtn = styled.button`
@@ -159,12 +174,36 @@ export const MelonBtn = styled.button`
   background: #fff;
   border: 1px solid #ddd;
   img {
-    height: 1.5rem;
+    height: 1.3rem;
     vertical-align: 0%;
   }
 `;
 
 export const CloseBtn = styled.button`
-  background: #222;
-  width: 100%;
+  position: absolute;
+  right: 2rem;
+  top: 1.6rem;
+  background: #fff;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  opacity: 0.5;
+  :hover {
+    opacity: 1;
+  }
+  :before,
+  :after {
+    content: '';
+    position: absolute;
+    width: 70%;
+    height: 2px;
+    background: rgba(0, 0, 0, 1);
+  }
+  :before {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+  :after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
 `;
