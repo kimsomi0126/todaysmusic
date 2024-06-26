@@ -45,11 +45,18 @@ const MusicList = ({ music, heart }: MusicProps) => {
   //유튜브영상
   const [ytOpen, setYtOpen] = useRecoilState(atomVideoOpen);
   const [ytData, setYtData] = useRecoilState(atomVideoId);
+  // 모달창 영역
+  const modalRef = useRef<HTMLDivElement>(null);
+  const moreRef = useRef<HTMLDivElement>(null);
+  const alertRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
 
+  // 더보기 아이콘 클릭
   const handleMoreClick = (item: MusicAddItem) => {
     setDetail(item);
     setIsOpen(true);
   };
+  // 음악 리스트 클릭
   const handlePlayClick = async (item: MusicAddItem) => {
     if (!isLogin) {
       setModalIsOpen(true);
@@ -63,22 +70,37 @@ const MusicList = ({ music, heart }: MusicProps) => {
     setYtOpen(true);
     setYtData(data.items[0].id.videoId);
   };
+  // 닫기 클릭
   const handleClickClose = () => {
     setIsOpen(false);
   };
+  // 확인버튼 클릭
   const handleOk = () => {
     setModalIsOpen(false);
     if (modalIsNav) {
       navigate(modalIsNav);
     }
   };
-  const modalRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    document.addEventListener('click', (e: { target: any }) => {
-      if (modalRef.current && !modalRef.current.contains(e.target)) {
-        console.log('??');
+    // 모달창 외 영역 클릭 시 창 닫기
+    const handleClickOutside = (e: MouseEvent) => {
+      const isOutside = (ref: React.RefObject<HTMLDivElement>) =>
+        ref.current && !ref.current.contains(e.target as Node);
+      // 더보기버튼 & 상세정보
+      if (isOutside(modalRef) && isOutside(moreRef)) {
+        setIsOpen(false);
       }
-    });
+      // 리스트 & 로그인 안내
+      if (isOutside(alertRef) && isOutside(listRef)) {
+        setModalIsOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
   }, []);
 
   return (
@@ -92,7 +114,9 @@ const MusicList = ({ music, heart }: MusicProps) => {
                 <img src={item.image} alt={item.album} />
               </MusicImage>
               <MusicInfo
-                onClick={() => {
+                ref={listRef}
+                onClick={e => {
+                  e.stopPropagation();
                   handlePlayClick(item);
                 }}
               >
@@ -101,10 +125,12 @@ const MusicList = ({ music, heart }: MusicProps) => {
               </MusicInfo>
             </MusicContent>
             <MusicMore
-              onClick={() => {
+              ref={moreRef}
+              onClick={e => {
+                e.stopPropagation();
                 handleMoreClick(item);
               }}
-            />
+            ></MusicMore>
           </MusicItem>
         ))}
       {isOpen ? (
@@ -115,6 +141,7 @@ const MusicList = ({ music, heart }: MusicProps) => {
         />
       ) : null}
       <Modal
+        ref={alertRef}
         title={modalTitle}
         desc={modalDesc}
         onClick={handleOk}

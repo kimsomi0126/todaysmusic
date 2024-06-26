@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   HeaderInner,
   HeaderWrap,
@@ -20,6 +20,24 @@ const Header = () => {
   const { getLogOut, modalTitle, modalDesc, handleOk, modalIsOpen } =
     useLogin();
 
+  const menuBarRef = useRef(null);
+  const menuRef = useRef(null);
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const isOutside = (ref: React.RefObject<HTMLDivElement>) =>
+        ref.current && !ref.current.contains(e.target as Node);
+
+      if (isOutside(menuBarRef) && isOutside(menuRef)) {
+        setIsOn(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
       <HeaderWrap>
@@ -29,8 +47,10 @@ const Header = () => {
           </Link>
           <HeaderMenu />
           <MenuBar
+            ref={menuBarRef}
             className={isOn ? 'on' : ''}
-            onClick={() => {
+            onClick={e => {
+              e.stopPropagation;
               setIsOn(!isOn);
             }}
           >
@@ -41,7 +61,7 @@ const Header = () => {
         </HeaderInner>
         <MenuWrap className={isOn ? 'on' : ''}>
           <MenuInner>
-            <ul>
+            <ul ref={menuRef}>
               <li>
                 <Link to={'/notice'}>
                   <img src="/images/notice_icon.svg" alt="" />
