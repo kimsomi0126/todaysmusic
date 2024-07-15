@@ -17,15 +17,24 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 
 const Signup = () => {
   const [checkTxt, setCheckTxt] = useState('');
+  const [pwCheckTxt, setPwCheckTxt] = useState('');
   const { modalTitle, modalDesc, modalIsOpen, getSignup, handleOk } =
     useLogin();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    if (checkTxt !== '') {
+
+    if (checkTxt !== '' && pwCheckTxt !== '') {
+      alert('회원정보를 다시 작성해주세요.');
+      return;
+    } else if (checkTxt !== '') {
       alert('이메일을 다시 작성해주세요.');
       return;
+    } else if (pwCheckTxt !== '') {
+      alert('비밀번호를 다시 작성해주세요.');
+      return;
     }
+
     const email = e.target.email.value;
     const password = e.target.password.value;
     getSignup(email, password);
@@ -44,6 +53,15 @@ const Signup = () => {
       setCheckTxt('');
     }
   };
+  const pwCheck = async (e: any) => {
+    const password = e.target.value;
+
+    if (password.length > 0 && password.length < 6) {
+      setPwCheckTxt('비밀번호는 6자 이상 입력해주세요.');
+    } else {
+      setPwCheckTxt('');
+    }
+  };
 
   return (
     <BgInner>
@@ -56,7 +74,7 @@ const Signup = () => {
             <IdWrap>
               <IptItem
                 type="email"
-                placeholder="이메일입력"
+                placeholder="이메일 입력"
                 name="email"
                 required
                 onChange={e => {
@@ -64,13 +82,17 @@ const Signup = () => {
                 }}
               />
               {checkTxt === '' ? null : <small>{checkTxt}</small>}
+              <IptItem
+                type="password"
+                placeholder="비밀번호 입력(최소 6자 이상)"
+                name="password"
+                required
+                onChange={e => {
+                  pwCheck(e);
+                }}
+              />
+              {pwCheckTxt === '' ? null : <small>{pwCheckTxt}</small>}
             </IdWrap>
-            <IptItem
-              type="password"
-              placeholder="비밀번호입력"
-              name="password"
-              required
-            />
             <SubmitBtn>회원가입</SubmitBtn>
             <Link to={'/'}>
               <span>메인으로 돌아가기</span>

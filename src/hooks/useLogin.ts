@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
@@ -125,6 +126,27 @@ export const useLogin = () => {
       console.log(error);
     }
   };
+
+  const getFindPw = (email: string) => {
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        // 성공 안내
+        setModalIsOpen(true);
+        setModalTitle('발송성공');
+        setModalDesc('등록된 이메일로 비밀변호 변경메일이 전송되었습니다.');
+        setModalIsNav('/');
+      })
+      .catch(error => {
+        // 에러 안내
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+        setModalIsOpen(true);
+        setModalTitle('발송실패');
+        setModalDesc(errorMessage);
+      });
+  };
+
   const handleOk = () => {
     setModalIsOpen(false);
     if (modalIsNav) {
@@ -142,5 +164,6 @@ export const useLogin = () => {
     getLogIn,
     getSignup,
     getLogOut,
+    getFindPw,
   };
 };

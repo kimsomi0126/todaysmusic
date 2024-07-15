@@ -27,14 +27,14 @@ const Login = () => {
           <form action="" onSubmit={e => handleSubmit(e)}>
             <IptItem
               type="email"
-              placeholder="이메일입력"
+              placeholder="이메일 입력"
               name="email"
               //defaultValue="test@test.com"
               required
             />
             <IptItem
               type="password"
-              placeholder="비밀번호입력 (최소 6자 이상)"
+              placeholder="비밀번호 입력"
               name="password"
               //defaultValue="123123"
               required
@@ -47,8 +47,8 @@ const Login = () => {
             <Link to={'/signup'}>
               아직 회원이 아니신가요? <span>회원가입하기</span>
             </Link>
-            <Link to={'/find'}>
-              가입한 적 있으신가요? <span>이메일/비밀번호 찾기</span>
+            <Link to={'/findpw'}>
+              비밀번호가 기억나지 않는다면? <span>비밀번호 재설정</span>
             </Link>
           </form>
         </FormWrap>

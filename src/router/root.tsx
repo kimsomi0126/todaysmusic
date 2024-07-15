@@ -9,6 +9,7 @@ const LazyMypagePage = lazy(() => import('../pages/Mypage'));
 const LazyNoticePage = lazy(() => import('../pages/Notice'));
 const LazyLoginPage = lazy(() => import('../pages/Login'));
 const LazySignupPage = lazy(() => import('../pages/Signup'));
+const LazyFindPwPage = lazy(() => import('../pages/FindPw'));
 
 const router = createBrowserRouter([
   {
@@ -78,6 +79,20 @@ const router = createBrowserRouter([
         }
       >
         <LazySignupPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: '/findpw',
+    element: (
+      <Suspense
+        fallback={
+          <BasicLayout>
+            <Loading />
+          </BasicLayout>
+        }
+      >
+        <LazyFindPwPage />
       </Suspense>
     ),
   },
