@@ -9,13 +9,13 @@ export const HeaderWrap = styled.div`
   z-index: 999;
   padding: 1rem 0;
   .logo img {
-    opacity: 0.8;
+    /* opacity: 0.8; */
     width: 5.4rem;
     aspect-ratio: 23/11;
     transition: 0.2s;
   }
   .logo:hover img {
-    opacity: 1;
+    /* opacity: 1; */
   }
 `;
 export const HeaderInner = styled.div`

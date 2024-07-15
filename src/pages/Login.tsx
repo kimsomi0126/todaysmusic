@@ -2,7 +2,7 @@ import BasicLayout from '../layouts/BasicLayout';
 import { Link } from 'react-router-dom';
 import Modal from '../components/common/Modal';
 import { useLogin } from '../hooks/useLogin';
-import { FormWrap, IptItem, SubmitBtn } from '../styles/user/user';
+import { BgInner, FormWrap, IptItem, SubmitBtn } from '../styles/user/user';
 import { PageTitle } from '../styles/common/basic';
 
 const Login = () => {
@@ -18,40 +18,48 @@ const Login = () => {
   };
 
   return (
-    <BasicLayout>
-      <FormWrap>
-        <PageTitle className="black">
-          <h4>로그인</h4>
-        </PageTitle>
-        <form action="" onSubmit={e => handleSubmit(e)}>
-          <IptItem
-            type="email"
-            placeholder="이메일입력"
-            name="email"
-            defaultValue="test@test.com"
-            required
-          />
-          <IptItem
-            type="password"
-            placeholder="비밀번호입력 (최소 6자 이상)"
-            name="password"
-            defaultValue="123123"
-            required
-            autoComplete="false"
-          />
-          <br />
-          <SubmitBtn>확인</SubmitBtn>
-          <br />
-          <Link to={'/signup'}>회원가입하기</Link>
-        </form>
-      </FormWrap>
-      <Modal
-        title={modalTitle}
-        desc={modalDesc}
-        onClick={handleOk}
-        isOpen={modalIsOpen}
-      />
-    </BasicLayout>
+    <BgInner>
+      <BasicLayout>
+        <FormWrap>
+          <PageTitle>
+            <h4>Login</h4>
+          </PageTitle>
+          <form action="" onSubmit={e => handleSubmit(e)}>
+            <IptItem
+              type="email"
+              placeholder="이메일입력"
+              name="email"
+              //defaultValue="test@test.com"
+              required
+            />
+            <IptItem
+              type="password"
+              placeholder="비밀번호입력 (최소 6자 이상)"
+              name="password"
+              //defaultValue="123123"
+              required
+              autoComplete="false"
+            />
+            <br />
+            <SubmitBtn>로그인하기</SubmitBtn>
+            <br />
+            <br />
+            <Link to={'/signup'}>
+              아직 회원이 아니신가요? <span>회원가입하기</span>
+            </Link>
+            <Link to={'/find'}>
+              가입한 적 있으신가요? <span>이메일/비밀번호 찾기</span>
+            </Link>
+          </form>
+        </FormWrap>
+        <Modal
+          title={modalTitle}
+          desc={modalDesc}
+          onClick={handleOk}
+          isOpen={modalIsOpen}
+        />
+      </BasicLayout>
+    </BgInner>
   );
 };
 
